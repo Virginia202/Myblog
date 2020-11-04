@@ -1,0 +1,232 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Blog post</title>
+</head>
+
+<style>
+    @import url('https://fonts.googleapis.com/css?family=Quicksand:400,500,700');
+
+    *{
+        margin: 0;
+    }
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Quicksand", sans-serif;
+        
+    }
+
+    .nav {
+        top: 0;
+        width: 100%;
+        height: 84px;
+        position: fixed;
+        line-height: 65px;
+        text-align: center;
+        background-color: rgb(39, 19, 97);
+        z-index: 9999;
+
+    }
+
+    .nav div.logo {
+        float: left;
+        width: auto;
+        height: auto;
+        padding-left: 3rem;
+        font-weight: 900;
+    }
+
+    .nav div.logo a {
+        text-decoration: none;
+        color: rgb(243, 242, 242);
+        font-size: 20px;
+    }
+
+    .nav div.logo a:hover {
+        color: rgb(12, 12, 12);
+    }
+
+    .nav div.main_list {
+        height: 65px;
+        float: right;
+    }
+
+    .nav div.main_list ul {
+        width: 100%;
+        height: 65px;
+        display: flex;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    .nav div.main_list ul li {
+        width: auto;
+        height: 65px;
+        padding: 0;
+        padding-right: 3rem;
+    }
+
+    .nav div.main_list ul li a {
+        text-decoration: none;
+        color: #fff;
+        line-height: 65px;
+        font-size: 1.7rem;
+    }
+
+    .nav div.main_list ul li a:hover {
+        color: rgb(8, 8, 8);
+    }
+
+    .navTrigger {
+        display: none;
+    }
+
+    .nav {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        -webkit-transition: all 0.4s ease;
+        transition: all 0.4s ease;
+    }
+
+
+    @media screen and (min-width: 768px) and (max-width: 1024px) {
+        .container {
+            margin: 0;
+        }
+    }
+
+    @media screen and (max-width:768px) {
+        .navTrigger {
+            display: block;
+        }
+
+        .nav div.logo {
+            margin-left: 15px;
+        }
+
+        .nav div.main_list {
+            width: 100%;
+            height: 0;
+            overflow: hidden;
+        }
+
+        .nav div.show_list {
+            height: auto;
+            display: none;
+        }
+
+        .nav div.main_list ul {
+            flex-direction: column;
+            width: 100%;
+            height: 100vh;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background-color: #111;
+            background-position: center top;
+        }
+
+        .nav div.main_list ul li {
+            width: 100%;
+            text-align: right;
+        }
+
+        .nav div.main_list ul li a {
+            text-align: center;
+            width: 100%;
+            padding: 20px;
+        }
+
+        .nav div.media_button {
+            display: block;
+        }
+    }
+
+    .navTrigger {
+        cursor: pointer;
+        width: 30px;
+        height: 25px;
+        margin: auto;
+        position: absolute;
+        right: 30px;
+        top: 0;
+        bottom: 0;
+    }
+
+    .navTrigger i {
+        background-color: #fff;
+        border-radius: 2px;
+        content: '';
+        display: block;
+        width: 100%;
+        height: 4px;
+    }
+</style>
+
+<body>
+    <nav class="nav">
+        <div class="container">
+            <div class="logo">
+                <!-- <p>Gee's Blog</p> -->
+                <a href="/">Blog_Me</a>
+            </div>
+            <div id="mainListDiv" class="main_list">
+                <ul class="navlinks">
+                    {% if current_user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('main.index')}}" style="color: white;font-weight:700;">{{current_user.username}}</a></li>
+                    <li><a  href="/blog/new/{{current_user.username}}">New Post</a></li>
+                    <li><a href="{{url_for('main.profile',uname=current_user.username)}}">Profile</a></li>
+                    <li><a href="{{url_for('auth.logout')}}">Sign out</a></li>
+                    {% else %}
+                    <li><a href="{{url_for('auth.login')}}">Sign in</a></li>
+                    {%endif%}
+                </ul>
+            </div>
+
+            <span class="navTrigger">
+                <i></i>
+                <i></i>
+                <i></i>
+            </span>
+        </div>
+    </nav>
+
+    
+    
+
+    <!-- Jquery needed -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+
+    <!-- Function used to shrink nav bar removing paddings and adding black background -->
+    <script>
+        $(window).scroll(function () {
+            if ($(document).scrollTop() > 50) {
+                $('.nav').addClass('affix');
+                console.log("OK");
+            } else {
+                $('.nav').removeClass('affix');
+            }
+        });
+        $('.navTrigger').click(function () {
+            $(this).toggleClass('active');
+            console.log("Clicked menu");
+            $("#mainListDiv").toggleClass("show_list");
+            $("#mainListDiv").fadeIn();
+
+        });
+
+    </script>
+</body>
+
+</html>

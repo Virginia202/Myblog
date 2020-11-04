@@ -1,0 +1,6 @@
+Hello {{user.username}}
+Welcome to Nyakinyua BlogPost.We've successfully verified your sign up. You can now enjoy the full fetures of our website like posting blogs and a lot more.
+
+Don't forget to subcribe to get latest blog posts
+
+from: Nyakinyua Blog, CEO

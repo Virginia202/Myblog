@@ -1,0 +1,70 @@
+{% extends 'layout.html'%}
+{% import 'bootstrap/wtf.html' as wtf %}
+
+{% block content %}
+
+<style>
+    #card {
+        transition: all .3s ease-in-out !important;
+        margin-bottom: 30px;
+    }
+
+
+    #card:hover {
+        -ms-transform: scale(1.02) !important;
+        -webkit-transform: scale(1.02) !important;
+        transform: scale(1.02) !important;
+        box-shadow: 0 8px 6px -6px black;
+    }
+</style>
+
+
+<div class="container" style="margin-top: 8em; margin-bottom: 3em; font-size: 20px !important;">
+    {% for quote in random_quotes%}
+    <div class="card">
+        <div class="card-body">
+            <div id="quote">
+                <p>{{quote.author}}</p>
+                <p>{{quote.quote}}</p>
+            </div>
+        </div>
+    </div>
+    {% endfor%}
+
+</div>
+
+
+
+<div class="container">
+    <div class="row" style='margin-bottom: 8px;'>
+        <div class="col-md-8">
+            <div class="card-deck">
+                {% for blog in blogs %}
+                <div class='col-md-12' style='margin-bottom: 30px;'>
+                    <div class=card  id="card">
+                        <div class="card-title">
+                            <h3 class="text-center" style="margin-top: 12px;"><strong>{{blog.title}}</strong></h3>
+                            <hr>
+                        </div>
+                        <div class="card-body">
+                            <h4>{{blog.blog_content}}</h4>
+                            <footer class="footer"> Posted by {{blog.user}} on {{blog.date_posted}}</footer>
+                            <a class="btn btn-outline-primary" href="/delete/{{blog.id}}">View</a>
+                            <a class='btn btn-outline-success' href='/comment/{{blog.id}}'>Comment</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+
+
+            </div>
+        </div>
+       
+    </div>
+</div>
+
+
+
+
+
+{% endblock content %}

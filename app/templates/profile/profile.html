@@ -1,0 +1,66 @@
+{% extends 'layout.html' %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row" style="margin-top:10em;">
+        <!-- Displaying profile/username -->
+        <div class="col-md-6">
+            <h3>{{user.username | capitalize }}</h3>
+
+            <!-- Displaying user bio -->
+            {% if user.bio %}
+            <p>{{user.bio}}</p>
+            {%  else %}
+
+            <p> {{user.username|capitalize }} has no Bio</p>
+            {% endif %}
+
+        </div>
+
+        <!--Displaying profile picture-->
+        
+            {% if user.profile_pic_path %}
+
+            <img src="{{url_for('static',filename=user.profile_pic_path)}}" alt="" class="img-thumbnail">
+
+            {%else%}
+            <p>No profile picture</p>
+
+            {% endif %}
+
+            {% if user == current_user %}
+            <form action="{{url_for('main.update_pic',uname=user.username)}}" method="post"
+                enctype="multipart/form-data">
+
+                <input type="file" name="photo" class="form-control" required>
+                <input type="submit">
+            </form>
+            {% endif %}
+        </div>
+
+
+        <div class="card">
+            {% for blog in bloglist %}
+
+            <h3>{{blog.title}}</h3>
+            <h4>{{blog.blog_content}}</h4>
+
+
+
+        </div>
+        <a class="btn btn-outline-danger" href="/delete/{{blog.id}}">Delete</a>
+
+        {% endfor %}
+    </div>
+   
+    <div class="col-md-4">
+        <a href="{{url_for('main.update_profile',uname = user.username)}}">Update profile</a>
+    </div>
+</div>
+</div>
+{% endblock %}
+</body>
+
+</html>

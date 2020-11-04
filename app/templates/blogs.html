@@ -1,0 +1,13 @@
+{% import 'bootstrap/wtf.html' as wtf %}
+{% extends 'layout.html' %}
+{% block content %}
+
+<div class='container' style="margin-top: 10em;">
+
+    <h2 style="font-weight: 600;"class="text-center">New Blog Post</h2>
+    {{wtf.quick_form(form)}}
+
+
+
+
+{% endblock %}

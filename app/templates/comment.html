@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+{% import 'bootstrap/wtf.html' as wtf %}
+{% block content %}
+<div class="container">
+    <div class="col-md-3"></div>
+    <div class="col-md-8" style="margin-top: 10em;">
+        {{ wtf.quick_form(commentForm) }}
+    </div>
+    <div class="col-md-3"></div>
+</div>
+{% if comments %}
+{% for comment in comments %}
+<div class="row text-center">
+    <a>
+        <p style="color:black">{{ comment.description }}</p>
+    </a>
+    <small> posted by {{comment.user.username}}</small>
+</div>
+{% endfor %}
+{% else %}
+
+<h3>This post has no comments!</h3>
+{%endif%}
+</div>
+{% endblock %}
